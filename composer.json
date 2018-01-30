@@ -1,0 +1,57 @@
+{
+    "name"             : "yoeunes/voteable",
+    "license"          : "MIT",
+    "description"      : "Laravel 5 package to add voting system to your models.",
+    "homepage"         : "https://github.com/yoeunes/voteable",
+    "keywords"         : [
+        "laravel",
+        "likeable",
+        "voteable",
+        "like",
+        "vote",
+        "dislike",
+        "up vote",
+        "down vote",
+        "laravel 5"
+    ],
+    "authors"          : [
+        {
+            "name"    : "Younes Khoubza",
+            "email"   : "younes.khoubza@gmail.com",
+            "homepage": "https://dalilbook.com",
+            "role"    : "Developer"
+        }
+    ],
+    "require"          : {
+        "php": ">=7.0.0",
+        "illuminate/database": "^5.5",
+        "illuminate/support": "^5.5"
+    },
+    "require-dev"      : {
+        "laracasts/testdummy": "^2.3",
+        "orchestra/testbench": "^3.5",
+        "phpunit/phpunit"    : "^6.5"
+    },
+    "autoload"         : {
+        "psr-4": {
+            "Yoeunes\\Voteable\\": "src"
+        }
+    },
+    "autoload-dev"     : {
+        "psr-4": {
+            "Yoeunes\\Voteable\\Tests\\": "tests"
+        }
+    },
+    "minimum-stability": "stable",
+    "prefer-stable"    : true,
+    "extra"            : {
+        "laravel": {
+            "providers": [
+                "Yoeunes\\Voteable\\VoteableServiceProvider"
+            ]
+        }
+    },
+    "config"           : {
+        "sort-packages": true
+    }
+}

@@ -1,0 +1,6 @@
+vendor/
+.idea
+/coverage
+composer.phar
+coverage.clover
+phpunit.phar
