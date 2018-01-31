@@ -44,11 +44,7 @@ class VoteBuilder
      */
     public function voteable(Model $voteable)
     {
-        throw_unless(
-            in_array(Voteable::class, class_uses_recursive($voteable)),
-            ModelDoesNotUseVoteableTrait::class,
-            get_class($voteable).' does not use the Voteable Trait'
-        );
+        throw_unless(in_array(Voteable::class, class_uses_recursive($voteable)), ModelDoesNotUseVoteableTrait::class, get_class($voteable).' does not use the Voteable Trait');
 
         $this->voteable = $voteable;
 
