@@ -2,6 +2,7 @@
 
 namespace Yoeunes\Voteable\Traits;
 
+use Yoeunes\Rateable\VoteBuilder;
 use Yoeunes\Voteable\Models\Vote;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Builder;
@@ -152,5 +153,16 @@ trait Voteable
     public function updateRating(int $vote_id, int $score)
     {
         return $this->votes()->where('id', $vote_id)->update(['score' => $score]);
+    }
+
+    /**
+     * @return VoteBuilder
+     *
+     * @throws \Throwable
+     */
+    public function getRatingBuilder()
+    {
+        return (new VoteBuilder())
+            ->voteable($this);
     }
 }
