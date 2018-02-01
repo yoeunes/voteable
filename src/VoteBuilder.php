@@ -19,6 +19,17 @@ class VoteBuilder
 
     protected $uniqueVoteForUsers = true;
 
+    public function __construct()
+    {
+        if (config('voteable.auth_user')) {
+            $this->user = auth()->id();
+        }
+
+        if (config('voteable.user_vote_once')) {
+            $this->uniqueVoteForUsers = true;
+        }
+    }
+
     /**
      * @param Model|int $user
      *
