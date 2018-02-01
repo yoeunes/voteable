@@ -5,6 +5,5 @@ return [
     'scores' => [
         'up'       => +1,
         'down'     => -1,
-        'favorite' => +5,
     ],
 ];

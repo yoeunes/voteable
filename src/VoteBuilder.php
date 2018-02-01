@@ -90,4 +90,44 @@ class VoteBuilder
 
         return $vote;
     }
+
+    /**
+     * @return Vote
+     *
+     * @throws \Throwable
+     */
+    public function voteUp()
+    {
+        return $this->score(config('voteable.scores.up'));
+    }
+
+    /**
+     * @return Vote
+     *
+     * @throws \Throwable
+     */
+    public function like()
+    {
+        return $this->voteUp();
+    }
+
+    /**
+     * @return Vote
+     *
+     * @throws \Throwable
+     */
+    public function voteDown()
+    {
+        return $this->score(config('voteable.scores.down'));
+    }
+
+    /**
+     * @return Vote
+     *
+     * @throws \Throwable
+     */
+    public function dislike()
+    {
+        return $this->voteDown();
+    }
 }
