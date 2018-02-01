@@ -165,4 +165,14 @@ trait Voteable
         return (new VoteBuilder())
             ->voteable($this);
     }
+
+    public function voters()
+    {
+        $user = config('voteable.user');
+
+        return (new $user)
+            ->votes()
+            ->where('voteable_id', $this->id)
+            ->where('voteable_type', Relation::getMorphedModel(__CLASS__) ?? __CLASS__);
+    }
 }
