@@ -2,7 +2,7 @@
 
 return [
     'user'   => App\User::class,
-    'scores' => [
+    'amount' => [
         'up'       => +1,
         'down'     => -1,
     ],

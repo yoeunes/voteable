@@ -64,13 +64,13 @@ class VoteBuilder
     }
 
     /**
-     * @param int $score
+     * @param int $amount
      *
      * @return Vote
      *
      * @throws \Throwable
      */
-    public function score(int $score)
+    public function amount(int $amount)
     {
         throw_if(empty($this->user), EmptyUser::class, 'Empty user');
 
@@ -84,7 +84,7 @@ class VoteBuilder
 
         $vote = $this->uniqueVoteForUsers ? Vote::firstOrNew($data) : (new Vote())->fill($data);
 
-        $vote->score = $score;
+        $vote->amount = $amount;
 
         $vote->save();
 
@@ -98,7 +98,7 @@ class VoteBuilder
      */
     public function voteUp()
     {
-        return $this->score(config('voteable.scores.up'));
+        return $this->amount(config('voteable.amount.up'));
     }
 
     /**
@@ -108,6 +108,6 @@ class VoteBuilder
      */
     public function voteDown()
     {
-        return $this->score(config('voteable.scores.down'));
+        return $this->amount(config('voteable.amount.down'));
     }
 }

@@ -26,7 +26,7 @@ trait Voteable
      */
     public function upVotesCount()
     {
-        return $this->votes()->where('score', '>=', 0)->sum('score');
+        return $this->votes()->where('amount', '>=', 0)->sum('amount');
     }
 
     /**
@@ -34,7 +34,7 @@ trait Voteable
      */
     public function downVotesCount()
     {
-        return $this->votes()->where('score', '<', 0)->sum('score');
+        return $this->votes()->where('amount', '<', 0)->sum('amount');
     }
 
     /**
@@ -42,7 +42,7 @@ trait Voteable
      */
     public function isUpVoted()
     {
-        return $this->votes()->where('score', '>=', 0)->exists();
+        return $this->votes()->where('amount', '>=', 0)->exists();
     }
 
     /**
@@ -50,7 +50,7 @@ trait Voteable
      */
     public function isDownVoted()
     {
-        return $this->votes()->where('score', '<', 0)->exists();
+        return $this->votes()->where('amount', '<', 0)->exists();
     }
 
     /**
@@ -60,7 +60,7 @@ trait Voteable
      */
     public function isUpVotedByUser(int $user_id)
     {
-        return $this->votes()->where('score', '>=', 0)->where('user_id', $user_id)->exists();
+        return $this->votes()->where('amount', '>=', 0)->where('user_id', $user_id)->exists();
     }
 
     /**
@@ -70,7 +70,7 @@ trait Voteable
      */
     public function isDownVotedByUser(int $user_id)
     {
-        return $this->votes()->where('score', '<', 0)->where('user_id', $user_id)->exists();
+        return $this->votes()->where('amount', '<', 0)->where('user_id', $user_id)->exists();
     }
 
     /**
@@ -88,7 +88,7 @@ trait Voteable
                     ->on('votes.voteable_id', $this->getTable() . '.id')
                     ->where('votes.voteable_type', Relation::getMorphedModel(__CLASS__) ?? __CLASS__);
             })
-            ->where('score', $type, 0)
+            ->where('amount', $type, 0)
             ->addSelect(DB::raw('SUM(votes.value) as count_votes'))
             ->groupBy($this->getTable(). '.id')
             ->orderBy('count_votes', $direction);
@@ -135,24 +135,24 @@ trait Voteable
 
     /**
      * @param int $user_id
-     * @param int $score
+     * @param int $amount
      *
      * @return int
      */
-    public function updateVotesForUser(int $user_id, int $score)
+    public function updateVotesForUser(int $user_id, int $amount)
     {
-        return $this->votes()->where('user_id', $user_id)->update(['score' => $score]);
+        return $this->votes()->where('user_id', $user_id)->update(['amount' => $amount]);
     }
 
     /**
      * @param int $vote_id
-     * @param int $score
+     * @param int $amount
      *
      * @return int
      */
-    public function updateVote(int $vote_id, int $score)
+    public function updateVote(int $vote_id, int $amount)
     {
-        return $this->votes()->where('id', $vote_id)->update(['score' => $score]);
+        return $this->votes()->where('id', $vote_id)->update(['amount' => $amount]);
     }
 
     /**
