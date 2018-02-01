@@ -29,6 +29,11 @@ trait Voteable
         return $this->votes()->where('score', '>=', 0)->sum('score');
     }
 
+    public function likesCount()
+    {
+        return $this->upVotesCount();
+    }
+
     /**
      * @return mixed
      */
@@ -37,12 +42,27 @@ trait Voteable
         return $this->votes()->where('score', '<', 0)->sum('score');
     }
 
+    public function dislikesCount()
+    {
+        return $this->downVotesCount();
+    }
+
+    public function unlikesCount()
+    {
+        return $this->downVotesCount();
+    }
+
     /**
      * @return bool
      */
-    public function isUpVotes()
+    public function isUpVoted()
     {
         return $this->votes()->where('score', '>=', 0)->exists();
+    }
+
+    public function isLiked()
+    {
+        return $this->isUpVoted();
     }
 
     /**
@@ -63,6 +83,11 @@ trait Voteable
         return $this->votes()->where('score', '>=', 0)->where('user_id', $user_id)->exists();
     }
 
+    public function isLikedByUser(int $user_id)
+    {
+        return $this->isUpVotedByUser($user_id);
+    }
+
     /**
      * @param int $user_id
      *
@@ -71,6 +96,16 @@ trait Voteable
     public function isDownVotedByUser(int $user_id)
     {
         return $this->votes()->where('score', '<', 0)->where('user_id', $user_id)->exists();
+    }
+
+    public function isDislikedByUser(int $user_id)
+    {
+        return $this->isDownVotedByUser($user_id);
+    }
+
+    public function isUnlikedByUser(int $user_id)
+    {
+        return $this->isDownVotedByUser($user_id);
     }
 
     /**
@@ -94,6 +129,11 @@ trait Voteable
             ->orderBy('count_votes', $direction);
     }
 
+    public function scopeOrderByLikes(Builder $query, string $direction = 'asc', string $type = '>=')
+    {
+        return $this->scopeOrderByUpVotes($query, $direction, $type);
+    }
+
     /**
      * @param Builder $query
      * @param string $direction
@@ -103,6 +143,11 @@ trait Voteable
     public function scopeOrderByDownVotes(Builder $query, string $direction = 'asc')
     {
         return $this->scopeOrderByUpVotes($query, $direction, '<');
+    }
+
+    public function scopeOrderByDislikes(Builder $query, string $direction = 'asc')
+    {
+        return $this->scopeOrderByDownVotes($query, $direction);
     }
 
     /**
@@ -115,12 +160,22 @@ trait Voteable
         return $this->votes()->where('id', $vote_id)->delete();
     }
 
+    public function deleteLike(int $like_id)
+    {
+        return $this->deleteVote($like_id);
+    }
+
     /**
      * @return mixed
      */
     public function resetVotes()
     {
         return $this->votes()->delete();
+    }
+
+    public function resetLikes()
+    {
+        return $this->resetVotes();
     }
 
     /**
@@ -131,6 +186,11 @@ trait Voteable
     public function deleteVotesForUser(int $user_id)
     {
         return $this->votes()->where('user_id', $user_id)->delete();
+    }
+
+    public function deleteLikesForUser(int $user_id)
+    {
+        return $this->deleteVotesForUser($user_id);
     }
 
     /**
@@ -144,15 +204,25 @@ trait Voteable
         return $this->votes()->where('user_id', $user_id)->update(['score' => $score]);
     }
 
+    public function updateLikesForUser(int $user_id, int $score)
+    {
+        return $this->updateVotesForUser($user_id, $score);
+    }
+
     /**
      * @param int $vote_id
      * @param int $score
      *
      * @return int
      */
-    public function updateRating(int $vote_id, int $score)
+    public function updateVote(int $vote_id, int $score)
     {
         return $this->votes()->where('id', $vote_id)->update(['score' => $score]);
+    }
+
+    public function updateLike(int $vote_id, int $score)
+    {
+        return $this->updateVote($vote_id, $score);
     }
 
     /**
