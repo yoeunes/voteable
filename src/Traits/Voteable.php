@@ -110,7 +110,7 @@ trait Voteable
      *
      * @return mixed
      */
-    public function deleteVote(int $vote_id)
+    public function cancelVote(int $vote_id)
     {
         return $this->votes()->where('id', $vote_id)->delete();
     }
@@ -128,7 +128,7 @@ trait Voteable
      *
      * @return mixed
      */
-    public function deleteVotesForUser(int $user_id)
+    public function cancelVotesForUser(int $user_id)
     {
         return $this->votes()->where('user_id', $user_id)->delete();
     }
