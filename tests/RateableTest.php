@@ -42,14 +42,26 @@ class RateableTest extends TestCase
         /** @var Lesson $lesson */
         $lesson = Factory::create(Lesson::class);
 
-        /** @var User $user */
-        $user = Factory::create(User::class);
-
-        Factory::create(Vote::class, ['voteable_id' => $lesson->id, 'amount' => +1, 'user_id' => $user->id]);
-        Factory::create(Vote::class, ['voteable_id' => $lesson->id, 'amount' => -2, 'user_id' => $user->id]);
+        Factory::create(Vote::class, ['voteable_id' => $lesson->id, 'amount' => +1]);
+        Factory::create(Vote::class, ['voteable_id' => $lesson->id, 'amount' => -2]);
         Factory::create(Vote::class, ['voteable_id' => $lesson->id, 'amount' => +3]);
 
         $this->assertEquals(4, $lesson->upVotesCount());
         $this->assertEquals(-2, $lesson->downVotesCount());
+    }
+
+    /** @test */
+    public function it_test_if_a_lesson_if_upvoted_or_downvoted()
+    {
+        $lessons = Factory::times(2)->create(Lesson::class);
+
+        Factory::create(Vote::class, ['voteable_id' => $lessons[0]->id, 'amount' => +1]);
+        Factory::create(Vote::class, ['voteable_id' => $lessons[0]->id, 'amount' => -1]);
+        Factory::create(Vote::class, ['voteable_id' => $lessons[1]->id, 'amount' => +1]);
+
+        $this->assertTrue($lessons[0]->isUpVoted());
+        $this->assertTrue($lessons[1]->isUpVoted());
+        $this->assertTrue($lessons[0]->isDownVoted());
+        $this->assertFalse($lessons[1]->isDownVoted());
     }
 }
