@@ -8,6 +8,7 @@ use Yoeunes\Voteable\Tests\Stubs\Models\Lesson;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Yoeunes\Voteable\Tests\Stubs\Models\User;
 
 class RateableTest extends TestCase
 {
@@ -54,7 +55,9 @@ class RateableTest extends TestCase
     {
         $lessons = Factory::times(2)->create(Lesson::class);
 
-        Factory::create(Vote::class, ['voteable_id' => $lessons[0]->id, 'amount' => +1]);
+        $user = Factory::create(User::class);
+
+        Factory::create(Vote::class, ['voteable_id' => $lessons[0]->id, 'user_id' => $user->id, 'amount' => +1]);
         Factory::create(Vote::class, ['voteable_id' => $lessons[0]->id, 'amount' => -1]);
         Factory::create(Vote::class, ['voteable_id' => $lessons[1]->id, 'amount' => +1]);
 
@@ -62,5 +65,7 @@ class RateableTest extends TestCase
         $this->assertTrue($lessons[1]->isUpVoted());
         $this->assertTrue($lessons[0]->isDownVoted());
         $this->assertFalse($lessons[1]->isDownVoted());
+        $this->assertTrue($lessons[0]->isVotedByUser($user->id));
+        $this->assertFalse($lessons[1]->isUpVotedByUser($user->id));
     }
 }

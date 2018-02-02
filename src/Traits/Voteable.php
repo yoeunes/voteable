@@ -53,6 +53,11 @@ trait Voteable
         return $this->votes()->where('amount', '<', 0)->exists();
     }
 
+    public function isVotedByUser(int $user_id)
+    {
+        return $this->votes()->where('user_id', $user_id)->exists();
+    }
+
     /**
      * @param int $user_id
      *
