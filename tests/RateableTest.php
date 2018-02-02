@@ -118,4 +118,20 @@ class RateableTest extends TestCase
         $lesson->cancelVotesForUser($user->id);
         $this->assertEquals(1, $lesson->upVotesCount());
     }
+
+    /** @test */
+    public function it_test_reset_votes_for_a_lesson()
+    {
+        $lessons = Factory::times(3)->create(Lesson::class);
+
+        Factory::times(3)->create(Vote::class, ['voteable_id' => $lessons[0]->id, 'amount' => +1]);
+        Factory::create(Vote::class, ['voteable_id' => $lessons[1]->id, 'amount' => +1]);
+        Factory::create(Vote::class, ['voteable_id' => $lessons[2]->id, 'amount' => +1]);
+
+        $lessons[0]->resetVotes();
+
+        $this->assertEquals(0, $lessons[0]->upVotesCount());
+        $this->assertEquals(1, $lessons[1]->upVotesCount());
+        $this->assertEquals(1, $lessons[2]->upVotesCount());
+    }
 }
