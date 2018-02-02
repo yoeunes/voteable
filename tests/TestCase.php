@@ -69,7 +69,7 @@ class TestCase extends BaseTestCase
         ]);
 
         $app['config']->set('voteable', [
-            'user'       => User::class,
+            'user'           => User::class,
             'auth_user'      => true,
             'user_vote_once' => true,
             'amount'         => [
