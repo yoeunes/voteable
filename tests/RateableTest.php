@@ -86,4 +86,36 @@ class RateableTest extends TestCase
         $this->assertEquals(1, $lesson->upVotesCount());
         $this->assertEquals($rating->amount, $lesson->upVotesCount());
     }
+
+    /** @test */
+    public function it_test_cancel_vote()
+    {
+        /** @var Lesson $lesson */
+        $lesson = Factory::create(Lesson::class);
+
+        Factory::create(Vote::class, ['voteable_id' => $lesson->id, 'amount' => +1]);
+        Factory::create(Vote::class, ['voteable_id' => $lesson->id, 'amount' => -2]);
+        $vote = Factory::create(Vote::class, ['voteable_id' => $lesson->id, 'amount' => +3]);
+
+        $this->assertEquals(4, $lesson->upVotesCount());
+
+        $lesson->cancelVote($vote->id);
+        $this->assertEquals(1, $lesson->upVotesCount());
+    }
+
+    /** @test */
+    public function it_test_cancel_vote_for_a_user()
+    {
+        /** @var Lesson $lesson */
+        $lesson = Factory::create(Lesson::class);
+
+        $user = Factory::create(User::class);
+
+        Factory::create(Vote::class, ['voteable_id' => $lesson->id, 'user_id' => $user->id, 'amount' => +1]);
+        Factory::create(Vote::class, ['voteable_id' => $lesson->id, 'user_id' => $user->id, 'amount' => -1]);
+        Factory::create(Vote::class, ['voteable_id' => $lesson->id, 'amount' => +1]);
+
+        $lesson->cancelVotesForUser($user->id);
+        $this->assertEquals(1, $lesson->upVotesCount());
+    }
 }
