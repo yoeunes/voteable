@@ -173,11 +173,11 @@ trait Voteable
 
     public function voters()
     {
-        $user = config('voteable.user');
+        /** @var Builder $query */
+        $query = $this->hasManyThrough(config('voteable.user'), Vote::class, 'voteable_id', 'id');
 
-        return (new $user)
-            ->votes()
-            ->where('voteable_id', $this->id)
-            ->where('voteable_type', Relation::getMorphedModel(__CLASS__) ?? __CLASS__);
+        $query->getQuery()->where('votes.voteable_type', __CLASS__);
+
+        return $query;
     }
 }
