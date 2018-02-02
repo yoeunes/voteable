@@ -2,8 +2,8 @@
 
 namespace Yoeunes\Voteable\Traits;
 
-use Yoeunes\Voteable\VoteBuilder;
 use Yoeunes\Voteable\Models\Vote;
+use Yoeunes\Voteable\VoteBuilder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Query\JoinClause;
