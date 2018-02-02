@@ -2,7 +2,7 @@
 
 namespace Yoeunes\Voteable\Traits;
 
-use Yoeunes\Rateable\VoteBuilder;
+use Yoeunes\Voteable\VoteBuilder;
 use Yoeunes\Voteable\Models\Vote;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Builder;
@@ -165,7 +165,7 @@ trait Voteable
      *
      * @throws \Throwable
      */
-    public function getRatingBuilder()
+    public function getVoteBuilder()
     {
         return (new VoteBuilder())
             ->voteable($this);

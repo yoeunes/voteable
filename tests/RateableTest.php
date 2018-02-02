@@ -68,4 +68,22 @@ class RateableTest extends TestCase
         $this->assertTrue($lessons[0]->isVotedByUser($user->id));
         $this->assertFalse($lessons[1]->isUpVotedByUser($user->id));
     }
+
+    /** @test */
+    public function it_vote_lesson_using_vote_builder()
+    {
+        /** @var Lesson */
+        $lesson = Factory::create(Lesson::class);
+
+        /** @var User $user */
+        $user = Factory::create(User::class);
+
+        $rating = $lesson
+            ->getVoteBuilder()
+            ->user($user)
+            ->voteUp();
+
+        $this->assertEquals(1, $lesson->upVotesCount());
+        $this->assertEquals($rating->amount, $lesson->upVotesCount());
+    }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace Yoeunes\Rateable;
+namespace Yoeunes\Voteable;
 
 use Yoeunes\Voteable\Models\Vote;
 use Yoeunes\Voteable\Traits\Voteable;
