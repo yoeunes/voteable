@@ -2,8 +2,8 @@
 
 namespace Yoeunes\Voteable\Tests\Stubs\Models;
 
-use Illuminate\Foundation\Auth\User as Authenticatable;
 use Yoeunes\Voteable\Traits\CanVote;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
