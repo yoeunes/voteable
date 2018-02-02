@@ -134,4 +134,21 @@ class RateableTest extends TestCase
         $this->assertEquals(1, $lessons[1]->upVotesCount());
         $this->assertEquals(1, $lessons[2]->upVotesCount());
     }
+
+    /** @test */
+    public function it_test_update_vote_for_a_user()
+    {
+        /** @var Lesson $lesson */
+        $lesson = Factory::create(Lesson::class);
+
+        $user = Factory::create(User::class);
+
+        Factory::create(Vote::class, ['voteable_id' => $lesson->id, 'user_id' => $user->id, 'amount' => +1]);
+
+        $this->assertEquals(1, $lesson->upVotesCount());
+
+        $lesson->updateVotesForUser($user->id, 3);
+
+        $this->assertEquals(3, $lesson->upVotesCount());
+    }
 }
