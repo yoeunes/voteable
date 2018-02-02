@@ -4,11 +4,11 @@ namespace Yoeunes\Voteable\Tests;
 
 use Laracasts\TestDummy\Factory;
 use Yoeunes\Voteable\Models\Vote;
+use Yoeunes\Voteable\Tests\Stubs\Models\User;
 use Yoeunes\Voteable\Tests\Stubs\Models\Lesson;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
-use Yoeunes\Voteable\Tests\Stubs\Models\User;
 
 class RateableTest extends TestCase
 {
