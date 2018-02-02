@@ -179,7 +179,7 @@ class RateableTest extends TestCase
         Factory::create(Vote::class, ['voteable_id' => $lesson->id, 'user_id' => $users[1]->id]);
         Factory::times(3)->create(Vote::class, ['voteable_id' => $lesson->id]);
         Factory::times(4)->create(Vote::class);
-
+dd($lesson->voters()->get());
         $this->assertCount(5, $lesson->voters()->get());
     }
 }
