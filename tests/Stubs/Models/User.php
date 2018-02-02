@@ -2,13 +2,10 @@
 
 namespace Yoeunes\Voteable\Tests\Stubs\Models;
 
-use Yoeunes\Voteable\Traits\CanVote;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
-    use CanVote;
-
     /**
      * The attributes that are mass assignable.
      *
