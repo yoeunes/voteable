@@ -1,6 +1,6 @@
 <h1 align="center">Laravel 5 Voting System</h1>
 
-<p align="center">:heart: This package helps you to add user based voting system to your model.</p>
+<p align="center">:+1:  :-1:  This package helps you to add user based voting system to your model.</p>
 
 <p align="center">
     <a href="https://travis-ci.org/yoeunes/voteable"><img src="https://travis-ci.org/yoeunes/voteable.svg?branch=master" alt="Build Status"></a>
