@@ -35,7 +35,8 @@
     "autoload"         : {
         "psr-4": {
             "Yoeunes\\Voteable\\": "src"
-        }
+        },
+        "files": ["src/helpers.php"]
     },
     "autoload-dev"     : {
         "psr-4": {

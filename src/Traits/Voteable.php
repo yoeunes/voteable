@@ -2,7 +2,6 @@
 
 namespace Yoeunes\Voteable\Traits;
 
-use Carbon\Carbon;
 use Yoeunes\Voteable\Models\Vote;
 use Yoeunes\Voteable\VoteBuilder;
 use Illuminate\Support\Facades\DB;
@@ -187,11 +186,11 @@ trait Voteable
         $query = $this->votes();
 
         if(!empty($from) && empty($to)) {
-            $query->where('created_at', '>=', $from);
+            $query->where('created_at', '>=', date_transformer($from));
         } elseif (empty($from) && !empty($to)) {
-            $query->where('created_at', '=<', $to);
+            $query->where('created_at', '=<', date_transformer($to));
         } elseif (!empty($from) && !empty($to)) {
-            $query->whereBetween('created_at', [$from, $to]);
+            $query->whereBetween('created_at', [date_transformer($from), date_transformer($to)]);
         }
 
         return $query->sum('amount');
