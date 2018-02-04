@@ -182,10 +182,18 @@ trait Voteable
         return $this->morphToMany(config('voteable.user'), 'voteable', 'votes');
     }
 
-    public function countVotesByDate($from, $to)
+    public function countVotesByDate($from = null, $to = null)
     {
-        $range = [(new Carbon($from))->startOfDay(), (new Carbon($to))->endOfDay()];
+        $query = $this->votes();
 
-        return $this->votes()->whereBetween('created_at', $range)->sum('amount');
+        if(!empty($from) && empty($to)) {
+            $query->where('created_at', '>=', $from);
+        } elseif (empty($from) && !empty($to)) {
+            $query->where('created_at', '=<', $to);
+        } elseif (!empty($from) && !empty($to)) {
+            $query->whereBetween('created_at', [$from, $to]);
+        }
+
+        return $query->sum('amount');
     }
 }
