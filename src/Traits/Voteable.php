@@ -188,7 +188,7 @@ trait Voteable
         if(!empty($from) && empty($to)) {
             $query->where('created_at', '>=', date_transformer($from));
         } elseif (empty($from) && !empty($to)) {
-            $query->where('created_at', '=<', date_transformer($to));
+            $query->where('created_at', '<=', date_transformer($to));
         } elseif (!empty($from) && !empty($to)) {
             $query->whereBetween('created_at', [date_transformer($from), date_transformer($to)]);
         }

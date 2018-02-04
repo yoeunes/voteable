@@ -201,5 +201,6 @@ class RateableTest extends TestCase
         $this->assertEquals(3, $lesson->countVotesByDate('2018-02-03 13:23:03'));
         $this->assertEquals(0, $lesson->countVotesByDate('2018-02-06 15:26:06'));
         $this->assertEquals(2, $lesson->countVotesByDate('2018-02-03 13:23:03', '2018-02-04 14:24:04'));
+        $this->assertEquals(2, $lesson->countVotesByDate(null, '2018-02-02 12:22:02'));
     }
 }
