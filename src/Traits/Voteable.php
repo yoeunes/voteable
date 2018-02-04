@@ -204,8 +204,6 @@ trait Voteable
 
     /**
      * @return VoteQueryBuilder
-     *
-     * @throws \Throwable
      */
     public function getVoteQueryBuilder()
     {
