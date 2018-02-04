@@ -168,7 +168,7 @@ class RateableTest extends TestCase
     }
 
     /** @test */
-    public function it_get_voter_for_a_specific_lesson()
+    public function it_get_voters_for_a_specific_lesson()
     {
         /** @var Lesson $lesson */
         $lesson = Factory::create(Lesson::class);

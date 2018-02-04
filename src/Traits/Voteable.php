@@ -2,6 +2,7 @@
 
 namespace Yoeunes\Voteable\Traits;
 
+use Carbon\Carbon;
 use Yoeunes\Voteable\Models\Vote;
 use Yoeunes\Voteable\VoteBuilder;
 use Illuminate\Support\Facades\DB;
@@ -19,6 +20,11 @@ trait Voteable
     public function votes()
     {
         return $this->morphMany(Vote::class, 'voteable');
+    }
+
+    public function votesCount()
+    {
+        return $this->votes()->sum('amount');
     }
 
     /**
@@ -174,5 +180,12 @@ trait Voteable
     public function voters()
     {
         return $this->morphToMany(config('voteable.user'), 'voteable', 'votes');
+    }
+
+    public function countVotesByDate($from, $to)
+    {
+        $range = [(new Carbon($from))->startOfDay(), (new Carbon($to))->endOfDay()];
+
+        return $this->votes()->whereBetween('created_at', $range)->sum('amount');
     }
 }
