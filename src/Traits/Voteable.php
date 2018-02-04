@@ -5,10 +5,10 @@ namespace Yoeunes\Voteable\Traits;
 use Yoeunes\Voteable\Models\Vote;
 use Yoeunes\Voteable\VoteBuilder;
 use Illuminate\Support\Facades\DB;
+use Yoeunes\Voteable\VoteQueryBuilder;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Query\JoinClause;
 use Illuminate\Database\Eloquent\Relations\Relation;
-use Yoeunes\Voteable\VoteQueryBuilder;
 
 trait Voteable
 {
@@ -209,7 +209,7 @@ trait Voteable
      */
     public function getVoteQueryBuilder()
     {
-        return (new VoteQueryBuilder($this->votes()));
+        return new VoteQueryBuilder($this->votes());
     }
 
     public function voters()

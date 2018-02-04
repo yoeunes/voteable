@@ -2,13 +2,13 @@
 
 namespace Yoeunes\Voteable;
 
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\MorphMany;
-use Illuminate\Database\Eloquent\Relations\Relation;
-use Illuminate\Database\Query\JoinClause;
-use Yoeunes\Voteable\Exceptions\ModelDoesNotUseVoteableTrait;
-use Yoeunes\Voteable\Exceptions\UserDoestNotHaveID;
 use Yoeunes\Voteable\Traits\Voteable;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Query\JoinClause;
+use Yoeunes\Voteable\Exceptions\UserDoestNotHaveID;
+use Illuminate\Database\Eloquent\Relations\Relation;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Yoeunes\Voteable\Exceptions\ModelDoesNotUseVoteableTrait;
 
 class VoteQueryBuilder
 {
@@ -61,7 +61,7 @@ class VoteQueryBuilder
         throw_unless(in_array(Voteable::class, class_uses_recursive($voteable)), ModelDoesNotUseVoteableTrait::class, get_class($voteable).' does not use the Voteable Trait');
 
         $this->query = $this->query
-             ->leftJoin('votes', function (JoinClause $join) use($voteable) {
+             ->leftJoin('votes', function (JoinClause $join) use ($voteable) {
                  $join
                      ->on('votes.voteable_id', $voteable->getTable() . '.id')
                      ->where('votes.voteable_type', Relation::getMorphedModel(get_class($voteable)) ?? get_class($voteable));
