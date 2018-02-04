@@ -182,4 +182,24 @@ class RateableTest extends TestCase
 
         $this->assertCount(5, $lesson->voters()->get());
     }
+
+    /** @test */
+    public function it_get_votes_from_start_date()
+    {
+        /** @var Lesson $lesson */
+        $lesson = Factory::create(Lesson::class);
+
+        $votes = Factory::times(5)->create(Vote::class, ['voteable_id' => $lesson->id, 'amount' => 1]);
+
+        $votes[0]->created_at = '2018-02-01 11:21:01'; $votes[0]->save();
+        $votes[1]->created_at = '2018-02-02 12:22:02'; $votes[1]->save();
+        $votes[2]->created_at = '2018-02-03 13:23:03'; $votes[2]->save();
+        $votes[3]->created_at = '2018-02-04 14:24:04'; $votes[3]->save();
+        $votes[4]->created_at = '2018-02-05 15:25:05'; $votes[4]->save();
+
+        $this->assertEquals(5, $lesson->countVotesByDate());
+        $this->assertEquals(3, $lesson->countVotesByDate('2018-02-03 13:23:03'));
+        $this->assertEquals(0, $lesson->countVotesByDate('2018-02-06 15:26:06'));
+        $this->assertEquals(2, $lesson->countVotesByDate('2018-02-03 13:23:03', '2018-02-04 14:24:04'));
+    }
 }
