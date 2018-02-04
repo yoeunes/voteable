@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 
-class RateableTest extends TestCase
+class VoteableTest extends TestCase
 {
     /** @test */
     public function it_test_if_voteable_is_a_morph_to_relation()
