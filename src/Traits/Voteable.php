@@ -185,7 +185,7 @@ trait Voteable
     {
         $query = $this->votes();
 
-        if(!empty($from) && empty($to)) {
+        if (! empty($from) && empty($to)) {
             $query->where('created_at', '>=', date_transformer($from));
         } elseif (empty($from) && !empty($to)) {
             $query->where('created_at', '<=', date_transformer($to));

@@ -1,6 +1,6 @@
 <?php
 
-if(!function_exists('date_transformer')) {
+if (! function_exists('date_transformer')) {
     function date_transformer($value)
     {
         $transformers = collect(config('voteable.date-transformers'));
