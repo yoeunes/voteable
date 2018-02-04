@@ -62,6 +62,7 @@ class VoteableTest extends TestCase
         Factory::create(Vote::class, ['voteable_id' => $lessons[1]->id, 'amount' => +1]);
 
         $this->assertTrue($lessons[0]->isUpVoted());
+        $this->assertTrue($lessons[0]->isVoted());
         $this->assertTrue($lessons[1]->isUpVoted());
         $this->assertTrue($lessons[0]->isDownVoted());
         $this->assertFalse($lessons[1]->isDownVoted());

@@ -99,6 +99,7 @@ $lesson->resetVotes(); // delete all rating related to the lesson
 
 ### check if a model is already votes:
 ```php
+$lesson->isVoted();
 $lesson->isUpVoted();
 $lesson->isDownVoted();
 $lesson->isUpVotedBy($user_id);// check if its already up voted by the given user

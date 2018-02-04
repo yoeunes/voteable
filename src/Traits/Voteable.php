@@ -42,6 +42,11 @@ trait Voteable
         return $this->votes()->where('amount', '<', 0)->sum('amount');
     }
 
+    public function isVoted()
+    {
+        return $this->votes()->exists();
+    }
+
     /**
      * @return bool
      */
