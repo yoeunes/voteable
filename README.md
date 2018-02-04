@@ -112,7 +112,7 @@ $lesson->downVotesCount();
 $lesson->votesCount(); // get the votes count (up votes + down votes)
 ```
 
-### get list of users who rated a model (voters):
+### get list of users who voted a model (voters):
 ```php
 $lesson->voters()->get();
 $lesson->voters()->where('name', 'like', '%yoeunes%')->get();
