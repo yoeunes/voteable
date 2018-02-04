@@ -208,9 +208,18 @@ class VoteableTest extends TestCase
         $votes[4]->save();
 
         $this->assertEquals(5, $lesson->countVotesByDate());
+        $this->assertEquals(5, $lesson->getVoteQueryBuilder()->getQuery()->sum('amount'));
+
         $this->assertEquals(3, $lesson->countVotesByDate('2018-02-03 13:23:03'));
+        $this->assertEquals(3, $lesson->getVoteQueryBuilder()->from('2018-02-03 13:23:03')->getQuery()->sum('amount'));
+
         $this->assertEquals(0, $lesson->countVotesByDate('2018-02-06 15:26:06'));
+        $this->assertEquals(0, $lesson->getVoteQueryBuilder()->from('2018-02-06 15:26:06')->getQuery()->sum('amount'));
+
         $this->assertEquals(2, $lesson->countVotesByDate('2018-02-03 13:23:03', '2018-02-04 14:24:04'));
+        $this->assertEquals(2, $lesson->getVoteQueryBuilder()->from('2018-02-03 13:23:03')->to('2018-02-04 14:24:04')->getQuery()->sum('amount'));
+
         $this->assertEquals(2, $lesson->countVotesByDate(null, '2018-02-02 12:22:02'));
+        $this->assertEquals(2, $lesson->getVoteQueryBuilder()->to('2018-02-02 12:22:02')->getQuery()->sum('amount'));
     }
 }

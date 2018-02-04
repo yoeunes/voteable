@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Query\JoinClause;
 use Illuminate\Database\Eloquent\Relations\Relation;
+use Yoeunes\Voteable\VoteQueryBuilder;
 
 trait Voteable
 {
@@ -86,6 +87,26 @@ trait Voteable
     public function isDownVotedByUser(int $user_id)
     {
         return $this->votes()->where('amount', '<', 0)->where('user_id', $user_id)->exists();
+    }
+
+    /**
+     * @param Builder $query
+     * @param string $direction
+     * @param string $type
+     *
+     * @return Builder
+     */
+    public function scopeOrderByVotes(Builder $query, string $direction = 'asc')
+    {
+        return $query
+            ->leftJoin('votes', function (JoinClause $join) {
+                $join
+                    ->on('votes.voteable_id', $this->getTable() . '.id')
+                    ->where('votes.voteable_type', Relation::getMorphedModel(__CLASS__) ?? __CLASS__);
+            })
+            ->addSelect(DB::raw('SUM(votes.value) as count_votes'))
+            ->groupBy($this->getTable(). '.id')
+            ->orderBy('count_votes', $direction);
     }
 
     /**
@@ -179,6 +200,16 @@ trait Voteable
     {
         return (new VoteBuilder())
             ->voteable($this);
+    }
+
+    /**
+     * @return VoteQueryBuilder
+     *
+     * @throws \Throwable
+     */
+    public function getVoteQueryBuilder()
+    {
+        return (new VoteQueryBuilder($this->votes()));
     }
 
     public function voters()
