@@ -101,7 +101,7 @@ trait Voteable
             ->leftJoin('votes', function (JoinClause $join) {
                 $join
                     ->on('votes.voteable_id', $this->getTable() . '.id')
-                    ->where('votes.voteable_type', Relation::getMorphedModel(__CLASS__) ?? __CLASS__);
+                    ->where('votes.voteable_type', in_array(__CLASS__, Relation::morphMap()) ? array_search(__CLASS__, Relation::morphMap()) : __CLASS__);
             })
             ->addSelect(DB::raw('SUM(votes.value) as count_votes'))
             ->groupBy($this->getTable(). '.id')
@@ -121,7 +121,7 @@ trait Voteable
             ->leftJoin('votes', function (JoinClause $join) {
                 $join
                     ->on('votes.voteable_id', $this->getTable() . '.id')
-                    ->where('votes.voteable_type', Relation::getMorphedModel(__CLASS__) ?? __CLASS__);
+                    ->where('votes.voteable_type', in_array(__CLASS__, Relation::morphMap()) ? array_search(__CLASS__, Relation::morphMap()) : __CLASS__);
             })
             ->where('amount', $type, 0)
             ->addSelect(DB::raw('SUM(votes.value) as count_votes'))
