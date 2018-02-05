@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'vote'           => Yoeunes\Voteable\Models\Vote::class,
     'user'           => App\User::class,
     'auth_user'      => true,
     'user_vote_once' => true,

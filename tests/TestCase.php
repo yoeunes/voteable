@@ -69,6 +69,7 @@ class TestCase extends BaseTestCase
         ]);
 
         $app['config']->set('voteable', [
+            'vote'           => \Yoeunes\Voteable\Models\Vote::class,
             'user'           => User::class,
             'auth_user'      => true,
             'user_vote_once' => true,

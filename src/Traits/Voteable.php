@@ -2,7 +2,6 @@
 
 namespace Yoeunes\Voteable\Traits;
 
-use Yoeunes\Voteable\Models\Vote;
 use Yoeunes\Voteable\VoteBuilder;
 use Illuminate\Support\Facades\DB;
 use Yoeunes\Voteable\VoteQueryBuilder;
@@ -19,7 +18,7 @@ trait Voteable
      */
     public function votes()
     {
-        return $this->morphMany(Vote::class, 'voteable');
+        return $this->morphMany(config('voteable.vote'), 'voteable');
     }
 
     public function votesCount()

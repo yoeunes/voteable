@@ -93,7 +93,9 @@ class VoteBuilder
             'voteable_type' => Relation::getMorphedModel(get_class($this->voteable)) ?? get_class($this->voteable),
         ];
 
-        $vote = $this->uniqueVoteForUsers ? Vote::firstOrNew($data) : (new Vote())->fill($data);
+        $voteModel = config('voteable.vote');
+
+        $vote = $this->uniqueVoteForUsers ? (new $voteModel)->firstOrNew($data) : (new $voteModel)->fill($data);
 
         $vote->amount = $amount;
 
