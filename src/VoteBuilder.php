@@ -90,7 +90,7 @@ class VoteBuilder
         $data = [
             'user_id'       => $this->user,
             'voteable_id'   => $this->voteable->id,
-            'voteable_type' => Relation::getMorphedModel(get_class($this->voteable)) ?? get_class($this->voteable),
+            'voteable_type' => in_array(get_class($this->voteable), Relation::morphMap()) ? array_search(get_class($this->voteable), Relation::morphMap()) : get_class($this->voteable),
         ];
 
         $voteModel = config('voteable.vote');

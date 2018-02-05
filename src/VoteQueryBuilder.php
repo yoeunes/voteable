@@ -64,7 +64,7 @@ class VoteQueryBuilder
              ->leftJoin('votes', function (JoinClause $join) use ($voteable) {
                  $join
                      ->on('votes.voteable_id', $voteable->getTable() . '.id')
-                     ->where('votes.voteable_type', Relation::getMorphedModel(get_class($voteable)) ?? get_class($voteable));
+                     ->where('votes.voteable_type', in_array(get_class($voteable), Relation::morphMap()) ? array_search(get_class($voteable), Relation::morphMap()) : get_class($voteable));
              });
 
         return $this;
