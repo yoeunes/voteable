@@ -1,4 +1,4 @@
-<h1 align="center">Laravel 5 Voting System</h1>
+<h1 align="center">Laravel 6 Voting System</h1>
 
 <p align="center">:+1:  :-1:  This package helps you to add user based voting system to your model.</p>
 

@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Str;
 use Yoeunes\Voteable\Models\Vote;
 use Yoeunes\Voteable\Tests\Stubs\Models\User;
 use Yoeunes\Voteable\Tests\Stubs\Models\Lesson;
@@ -20,5 +21,5 @@ $factory(User::class, [
     'name'           => $faker->name,
     'email'          => $faker->unique()->safeEmail,
     'password'       => bcrypt('secret'),
-    'remember_token' => str_random(10),
+    'remember_token' => Str::random(10),
 ]);
