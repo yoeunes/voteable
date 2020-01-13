@@ -17,7 +17,7 @@ class TestCase extends BaseTestCase
         ];
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         Schema::drop('votes');
         Schema::drop('lessons');
