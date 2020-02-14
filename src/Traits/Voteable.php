@@ -2,12 +2,12 @@
 
 namespace Yoeunes\Voteable\Traits;
 
-use Yoeunes\Voteable\VoteBuilder;
-use Illuminate\Support\Facades\DB;
-use Yoeunes\Voteable\VoteQueryBuilder;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Query\JoinClause;
 use Illuminate\Database\Eloquent\Relations\Relation;
+use Illuminate\Database\Query\JoinClause;
+use Illuminate\Support\Facades\DB;
+use Yoeunes\Voteable\VoteBuilder;
+use Yoeunes\Voteable\VoteQueryBuilder;
 
 trait Voteable
 {
