@@ -2,13 +2,13 @@
 
 namespace Yoeunes\Voteable;
 
-use Yoeunes\Voteable\Traits\Voteable;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Query\JoinClause;
-use Yoeunes\Voteable\Exceptions\UserDoestNotHaveID;
-use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Illuminate\Database\Eloquent\Relations\Relation;
+use Illuminate\Database\Query\JoinClause;
 use Yoeunes\Voteable\Exceptions\ModelDoesNotUseVoteableTrait;
+use Yoeunes\Voteable\Exceptions\UserDoestNotHaveID;
+use Yoeunes\Voteable\Traits\Voteable;
 
 class VoteQueryBuilder
 {

@@ -2,14 +2,14 @@
 
 namespace Yoeunes\Voteable;
 
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\Relation;
+use Yoeunes\Voteable\Exceptions\EmptyUser;
+use Yoeunes\Voteable\Exceptions\ModelDoesNotUseVoteableTrait;
+use Yoeunes\Voteable\Exceptions\UserDoestNotHaveID;
+use Yoeunes\Voteable\Exceptions\VoteableModelNotFound;
 use Yoeunes\Voteable\Models\Vote;
 use Yoeunes\Voteable\Traits\Voteable;
-use Illuminate\Database\Eloquent\Model;
-use Yoeunes\Voteable\Exceptions\EmptyUser;
-use Yoeunes\Voteable\Exceptions\UserDoestNotHaveID;
-use Illuminate\Database\Eloquent\Relations\Relation;
-use Yoeunes\Voteable\Exceptions\VoteableModelNotFound;
-use Yoeunes\Voteable\Exceptions\ModelDoesNotUseVoteableTrait;
 
 class VoteBuilder
 {

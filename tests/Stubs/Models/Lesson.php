@@ -2,8 +2,8 @@
 
 namespace Yoeunes\Voteable\Tests\Stubs\Models;
 
-use Yoeunes\Voteable\Traits\Voteable;
 use Illuminate\Database\Eloquent\Model;
+use Yoeunes\Voteable\Traits\Voteable;
 
 class Lesson extends Model
 {
